@@ -1,0 +1,38 @@
+# Copy to your config directory as <target-name>.toml:
+#
+#   Linux / macOS / WSL   ~/.config/git-relay/<target-name>.toml
+#   Windows               %USERPROFILE%\.config\git-relay\<target-name>.toml
+#
+# Override the location with GIT_RELAY_CONFIG_DIR, or point at one file with
+# --config. `git-relay --list` shows what it can see.
+#
+# The config lives outside this repo on purpose. Keeping it inside the checkout
+# meant `git clean -xdf` could delete it and every `git pull` of the tool touched
+# user data. It is read as TOML, not sourced by a shell, so nothing in here can
+# execute.
+
+[remote]
+# The host whose checkout cannot reach your git server.
+host = "10.0.0.15"
+user = "ec2-user"
+
+# Absolute path to the git checkout on that host. It must be a normal clone: a
+# `.git` directory, not a submodule gitlink.
+path = "/home/ec2-user/myproject"
+
+# Key authorised on the host. A leading ~ is expanded.
+ssh_key = "~/.ssh/id_ed25519_host"
+
+[local]
+# The workstation clone that relays for this host. Same repository as remote.path.
+path = "~/dev/myproject"
+
+# Key authorised on your git server (origin). Separate from remote.ssh_key: one
+# authenticates to the host, this one to origin. They are frequently different
+# keys, and reusing one for both is how a host ends up able to push to origin.
+git_ssh_key = "~/.ssh/id_ed25519_origin"
+
+[sync]
+# Optional. Omit to detect the default branch from origin/HEAD, falling back to
+# main then master. Set it explicitly if that guess would be wrong.
+# branch = "master"

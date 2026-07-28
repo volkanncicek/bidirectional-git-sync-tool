@@ -1,0 +1,13 @@
+# Everything is LF in the repository and LF in the working tree, on every platform.
+#
+# Two reasons, both load bearing. git_relay.py is executable and carries a shebang,
+# so a CRLF checkout makes it fail with "bad interpreter" under Linux and WSL. And
+# this checkout is routinely used from both Windows and WSL at once: Windows git
+# commonly runs with core.autocrlf=true, which would rewrite line endings on one
+# side and leave the other seeing every line as changed.
+* text=auto eol=lf
+
+# Keep git from ever applying text conversion to these.
+*.png binary
+*.jpg binary
+*.gz binary

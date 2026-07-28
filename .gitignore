@@ -1,0 +1,22 @@
+# Targets live in ~/.config/git-relay/, never here. Kept as a backstop for anyone
+# pointing GIT_RELAY_CONFIG_DIR at a checkout.
+.env
+.git-credentials
+
+.venv/
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+*.code-workspace
+*.vsix
+
+.DS_Store
+Thumbs.db
